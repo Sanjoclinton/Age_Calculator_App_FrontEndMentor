@@ -73,8 +73,13 @@ form.addEventListener('submit', function(e) {
             checkDay = checkDay + 31;
         }
 
+        if(checkMonth === 0) {
+            checkMonth += 12;
+            checkYear--;
+        }
         checkMonth--;
     }
+
     
     if(checkMonth < 0) {
         checkMonth = checkMonth + 12;
