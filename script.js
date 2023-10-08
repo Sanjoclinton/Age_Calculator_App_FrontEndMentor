@@ -25,7 +25,7 @@ let year =  Number(dayMonthYear[2]);
 form.addEventListener('submit', function(e) {
     e.preventDefault();
     
-    if((dayInput.value < 1 || dayInput.value > 31) || (monthInput.value < 1 || monthInput.value > 12) || (yearInput.value < 1 || yearInput.value > year)){
+    if((dayInput.value < 1 || dayInput.value > 31) || (monthInput.value < 1 || monthInput.value > 12) || (yearInput.value < 1 || yearInput.value >= year)){
         if(dayInput.value < 1 || dayInput.value > 31) {
             error[0].classList.remove('hide');
             label[0].classList.add('red');
@@ -37,11 +37,18 @@ form.addEventListener('submit', function(e) {
             label[1].classList.add('red');
         }
 
-        if(yearInput.value < 1 || yearInput > year ) {
+        if((yearInput.value < 1 || yearInput > year)) {
             error[2].classList.remove('hide');
             label[2].classList.add('red');
         }
 
+        console.log('error');
+
+        if(((yearInput.value == year) && ( (month - monthInput.value < 0) || (month - monthInput.value <= 0 && day - dayInput.value < 0)))) {
+            error[2].classList.remove('hide');
+            label[2].classList.add('red');
+            console.log('inside year - error');
+        }
         console.log("I'm here")
 
     } else {
@@ -53,36 +60,31 @@ form.addEventListener('submit', function(e) {
             error.classList.add('hide');
         });
 
-       
-        let checkYear = year - yearInput.value;
-        let checkMonth = month - monthInput.value;
-        let checkDay = day - dayInput.value;
-
-        if(checkDay < 0) {
-
-            if(dayInput.value == 2) {
-                checkDay = (28 - dayInput.value + day);
-            } else if(dayInput.value == 4 || dayInput.value == 6 || dayInput.value == 9 || dayInput.value == 11) {
-                checkDay = (30 - dayInput.value + day);
-            } else {
-                checkDay = (31 - dayInput.value + day);
-            }
-            console.log("i'm HERE now")
-            checkMonth--;
-            
+    let checkDay = (day - dayInput.value);
+    let checkMonth = (month - monthInput.value);
+    let checkYear = (year - yearInput.value);
+    
+    if(checkDay < 0) {
+        if(dayInput.value - 1 === 9 || dayInput.value -1  === 4 || dayInput.value -1 === 6 || dayInput.value - 1 === 11) {
+            checkDay = checkDay + 30;
+        } else if(dayInput.value - 1 === 2) {
+            checkDay = checkDay + 28;
+        } else {
+            checkDay = checkDay + 31;
         }
 
-        if(checkMonth < 0 ) {
-            checkMonth = (12 - monthInput.value + month);
-            checkYear--;
-        }
-
-        dayResult.innerText = checkDay;
-        monthResult.innerText = checkMonth;
-        yearResult.innerText = checkYear;
-
-
-        console.log('done');
+        checkMonth--;
     }
+    
+    if(checkMonth < 0) {
+        checkMonth = checkMonth + 12;
+        checkYear--;
+    } 
 
+    dayResult.innerText = checkDay;
+    monthResult.innerText = checkMonth;
+    yearResult.innerText = checkYear;
+
+
+    }
 });
