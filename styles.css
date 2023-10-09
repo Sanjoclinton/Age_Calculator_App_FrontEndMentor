@@ -111,14 +111,13 @@ button {
 }
 
 .animate-btn {
-    animation: slide 3s linear infinite;
+  animation: slide 3s linear infinite;
 }
 
 @keyframes slide {
-    100% {
-        transform: rotate(360deg);
-    }
-    
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .results {
