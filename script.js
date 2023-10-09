@@ -62,6 +62,10 @@ form.addEventListener("submit", function(e) {
   displayAge();
 });
 
+btnForm.addEventListener("click", function(e) {
+    displayAge();
+  });
+
 // My Functions
 function getBirthdate() {
   let check = [birthYear, birthMonth, birthDay];
