@@ -1,91 +1,158 @@
-// Constants
-const form = document.querySelector('form');
+//General Constants
+
+// Input and output values
+const inputValues = document.querySelectorAll("input");
+let birthDay;
+let birthMonth;
+let birthYear;
+
+const outputValues = document.querySelectorAll("span.purple");
+let yearOutput = outputValues[0];
+let monthOutput = outputValues[1];
+let dayOutput = outputValues[2];
+
+// Form
+const form = document.querySelector("form");
+const labels = document.querySelectorAll("label");
+const validError = document.querySelectorAll(".valid");
+const pastError = document.querySelectorAll(".past");
+
 const btn = document.querySelector('#btn');
 
-const dayInput = document.querySelector('#day-input');
-const monthInput = document.querySelector('#month-input');
-const yearInput = document.querySelector('#year-input');
+// Date
+const today = new Date();
+const day = today.getDay();
+const month = today.getMonth();
+const year = today.getFullYear();
 
-let dayResult = document.querySelector('.day-result');
-let monthResult = document.querySelector('.month-result');
-let yearResult = document.querySelector('.year-result');
+let myDate;
+let len;
+let diff;
 
-const error = document.querySelectorAll('.error');
+const msYear = 31557600000;
+const msMonth = 2630016000;
+const msDay = 86399000;
 
-const label = document.querySelectorAll('label')
+// Clear my form input values on reload
+form.reset();
 
-const date = new Date();
-let dayMonthYear = date.toLocaleDateString().split('/');
-let month =   Number(dayMonthYear[0]);
-let day = Number(dayMonthYear[1]);
-let year =  Number(dayMonthYear[2]);
+// Form events
+form.addEventListener("keyup", function (e) {
+  e.preventDefault();
+ btn.classList.add('animate');
 
+  birthDay = Number(inputValues[0].value);
+  birthMonth = Number(inputValues[1].value);
+  birthYear = Number(inputValues[2].value);
 
+  len = inputValues[2].value.length;
 
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    if((dayInput.value < 1 || dayInput.value > 31) || (monthInput.value < 1 || monthInput.value > 12) || (yearInput.value < 1 || yearInput.value > year)){
-        if(dayInput.value < 1 || dayInput.value > 31) {
-            error[0].classList.remove('hide');
-            label[0].classList.add('red');
-            console.log("i'm here")
-        }
+  myDate = getBirthdate();
+  checkValid(myDate);
+  checkNotPast(myDate);
 
-        if(monthInput.value < 1 || monthInput.value > 12) {
-            error[1].classList.remove('hide');
-            label[1].classList.add('red');
-        }
-
-        if((yearInput.value < 1 || yearInput > year)) {
-            error[2].classList.remove('hide');
-            label[2].classList.add('red');
-        }
-
-    } else {
-        label.forEach(label => {
-            label.classList.remove('red');
-        });
-
-        error.forEach(error => {
-            error.classList.add('hide');
-        });
-
-        if(((yearInput.value == year) && ( (month - monthInput.value < 0) || (month - monthInput.value <= 0 && day - dayInput.value < 0)))) {
-            error[2].classList.remove('hide');
-            label[2].classList.add('red');
-            console.log('inside year - error');
-        } else {
-            let checkDay = (day - dayInput.value);
-            let checkMonth = (month - monthInput.value);
-            let checkYear = (year - yearInput.value);
-            
-            if(checkDay < 0) {
-                if(month === 9 || month === 4 || month === 6 || month === 11) {
-                    checkDay = checkDay + 30;
-                } else if(month == 28) {
-                    checkDay = checkDay + 28;
-                } else {
-                    checkDay = checkDay + 31;
-                }
-        
-                if(checkMonth === 0) {
-                    checkMonth += 12;
-                    checkYear--;
-                }
-                checkMonth--;
-            }
-        
-            
-            if(checkMonth < 0) {
-                checkMonth = checkMonth + 12;
-                checkYear--;
-            } 
-        
-            dayResult.innerText = checkDay;
-            monthResult.innerText = checkMonth;
-            yearResult.innerText = checkYear;
-    
-            }
-    }
+  yearOutput.innerText = "--";
+  monthOutput.innerText = "--";
+  dayOutput.innerText = "--";
 });
+
+// Results are only displayed on submit
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  displayAge();
+});
+
+// My Functions
+function getBirthdate() {
+  let check = [birthYear, birthMonth, birthDay];
+  let birthDate = check.join("-");
+  birthDate = new Date(birthDate);
+  return birthDate;
+}
+
+function checkValid(myDate) {
+  if (isNaN(myDate) || len < 4) {
+    if (birthDay < 1 || birthDay > 31) {
+      labels[0].classList.add("red");
+      validError[0].classList.remove("hide");
+    } else {
+      labels[0].classList.remove("red");
+      validError[0].classList.add("hide");
+    }
+
+    if (birthMonth < 1 || birthMonth > 12) {
+      labels[1].classList.add("red");
+      validError[1].classList.remove("hide");
+    } else {
+      labels[1].classList.remove("red");
+      validError[1].classList.add("hide");
+    }
+
+    if (birthYear < 1 || birthYear > year || len < 4) {
+      labels[2].classList.add("red");
+      validError[2].classList.remove("hide");
+    } else {
+      labels[2].classList.remove("red");
+      validError[2].classList.add("hide");
+    }
+  } else {
+    labels.forEach((label) => {
+      label.classList.remove("red");
+    });
+
+    validError.forEach((valid) => {
+      valid.classList.add("hide");
+    });
+
+    return true;
+  }
+  return false;
+}
+
+function checkNotPast(myDate) {
+  if (myDate > today) {
+    if (birthDay > day) {
+      labels[0].classList.add("red");
+      pastError[0].classList.remove("hide");
+    } else {
+      labels[0].classList.remove("red");
+      pastError[0].classList.add("hide");
+    }
+
+    if (birthMonth > month) {
+      labels[1].classList.add("red");
+      pastError[1].classList.remove("hide");
+    } else {
+      labels[1].classList.remove("red");
+      pastError[1].classList.add("hide");
+    }
+
+    if (birthYear > year) {
+      labels[2].classList.add("red");
+      pastError[2].classList.remove("hide");
+    } else {
+      labels[2].classList.remove("red");
+      pastError[2].classList.add("hide");
+    }
+  } else {
+    labels.forEach((label) => {
+      label.classList.remove("red");
+    });
+
+    pastError.forEach((past) => {
+      past.classList.add("hide");
+    });
+    return true;
+  }
+  return false;
+}
+
+function displayAge() {
+  if (checkNotPast(myDate) && checkValid(myDate)) {
+    btn.classList.remove('animate');
+    diff = today - myDate;
+    yearOutput.innerText = Math.floor(diff / msYear);
+    monthOutput.innerText = Math.floor((diff % msYear) / msMonth);
+    dayOutput.innerText = Math.floor(((diff % msYear) % msMonth) / msDay);
+  }
+}

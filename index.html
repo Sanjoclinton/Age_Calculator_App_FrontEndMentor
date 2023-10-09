@@ -1,52 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
-  
-  <title>Frontend Mentor | Age calculator app</title>
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
 
-  <link rel="stylesheet" href="styles.css">
+    <title>Frontend Mentor | Age calculator app</title>
 
-  
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <form>
+        <fieldset>
+          <label for="day-input">DAY</label>
+          <input id="day-input" type="number" name="day" placeholder="DD" />
+          <p class="valid hide">Must be a valid day</p>
+          <p class="past hide">Must be in the past</p>
+        </fieldset>
 
-  <main>
-    <form>
-      <fieldset>
-        <label class="day-label" for="day-input">DAY</label>
-        <input id="day-input" type="number" name="day" placeholder="DD">
-        <p class="error hide">Must be a valid day</p>
-      </fieldset>
-      
-      <fieldset>
-        <label class="month-label" for="month-input">MONTH</label>
-        <input id="month-input" type="number" name="month" placeholder="MM">
-        <p class="error hide">Must be a valid month</p>
-      </fieldset>
+        <fieldset>
+          <label for="month-input">MONTH</label>
+          <input id="month-input" type="number" name="month" placeholder="MM" />
+          <p class="valid hide">Must be a valid month</p>
+          <p class="past hide">Must be in the past</p>
+        </fieldset>
 
-      <fieldset>
-        <label class="year-label" for="year-input">YEAR</label>
-        <input id="year-input" type="number" name="day" placeholder="YYYY">
-        <p class="error hide">Must be in the past</p>
-      </fieldset>
+        <fieldset>
+          <label for="year-input">YEAR</label>
+          <input id="year-input" type="number" name="day" placeholder="YYYY" />
+          <p class="valid hide">Must be a valid year</p>
+          <p class="past hide">Must be in the past</p>
+        </fieldset>
 
-        <button  id="btn"><img src="assets/images/icon-arrow.svg" id= alt=""></button>
-    </form>
+        <button id="btn" class="animate">
+          <img src="assets/images/icon-arrow.svg" id="alt" ="" />
+        </button>
+      </form>
 
-    <div class="results">
-      <h1 class="result"><span class="purple year-result">-- </span>years</h1>
-      <h1 class="result"><span class="purple month-result">-- </span>months</h1>
-      <h1 class="result"><span class="purple day-result">-- </span>days</h1>
-    </div>
-      
-  </main>
+      <div class="results">
+        <h1 class="result"><span class="purple">--</span> years</h1>
+        <h1 class="result"><span class="purple">--</span> months</h1>
+        <h1 class="result"><span class="purple">--</span> days</h1>
+      </div>
+    </main>
 
-  <p class="dev purple">Designed by <a href="https://www.linkedin.com/in/sanjoclinton/" target="_blank">Oluwasanjo Elisha Adeniyi</a></p>
+    <p class="dev">
+      Designed by
+      <a
+        class="purple"
+        href="https://www.linkedin.com/in/sanjoclinton/"
+        target="_blank"
+        >Sanjoclinton</a
+      >
+    </p>
 
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
