@@ -17,7 +17,7 @@ const labels = document.querySelectorAll("label");
 const validError = document.querySelectorAll(".valid");
 const pastError = document.querySelectorAll(".past");
 
-const btn = document.querySelector('#btn');
+const btnForm = document.querySelector('#btn-form');
 
 // Date
 const today = new Date();
@@ -39,7 +39,7 @@ form.reset();
 // Form events
 form.addEventListener("keyup", function (e) {
   e.preventDefault();
- btn.classList.add('animate');
+ btnForm.classList.add('animate');
 
   birthDay = Number(inputValues[0].value);
   birthMonth = Number(inputValues[1].value);
@@ -57,7 +57,7 @@ form.addEventListener("keyup", function (e) {
 });
 
 // Results are only displayed on submit
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", function(e) {
   e.preventDefault();
   displayAge();
 });
@@ -149,7 +149,7 @@ function checkNotPast(myDate) {
 
 function displayAge() {
   if (checkNotPast(myDate) && checkValid(myDate)) {
-    btn.classList.remove('animate');
+    btnForm.classList.remove('animate');
     diff = today - myDate;
     yearOutput.innerText = Math.floor(diff / msYear);
     monthOutput.innerText = Math.floor((diff % msYear) / msMonth);
