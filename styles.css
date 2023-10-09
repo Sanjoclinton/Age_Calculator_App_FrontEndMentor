@@ -110,7 +110,7 @@ button {
   top: 165px;
 }
 
-.animate {
+.animate-btn {
     animation: slide 3s linear infinite;
 }
 
