@@ -110,7 +110,7 @@ button {
   top: 165px;
 }
 
-.animate-btn {
+/* .animate-btn {
   animation: slide 3s linear infinite;
 }
 
@@ -118,7 +118,7 @@ button {
   100% {
     transform: rotate(360deg);
   }
-}
+} */
 
 .results {
   margin-top: 60px;

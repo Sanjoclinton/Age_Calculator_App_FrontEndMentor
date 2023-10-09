@@ -39,7 +39,7 @@ form.reset();
 // Form events
 form.addEventListener("keyup", function (e) {
   e.preventDefault();
-  btnForm.classList.add("animate-btn");
+//   btnForm.classList.add("animate-btn");
 
   birthDay = Number(inputValues[0].value);
   birthMonth = Number(inputValues[1].value);
@@ -149,7 +149,7 @@ function checkNotPast(myDate) {
 
 function displayAge() {
   if (checkNotPast(myDate) && checkValid(myDate)) {
-    btnForm.classList.remove("animate-btn");
+    // btnForm.classList.remove("animate-btn");
     diff = today - myDate;
     yearOutput.innerText = Math.floor(diff / msYear);
     monthOutput.innerText = Math.floor((diff % msYear) / msMonth);
